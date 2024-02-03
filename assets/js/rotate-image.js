@@ -1,26 +1,38 @@
-function rotate(matrix) {
-  const n = matrix.length;
+function rotateMatrix() {
+  // Get matrix from input textarea
+  const inputMatrix = document.getElementById('matrix').value.trim().split('\n').map(row => row.split(',').map(Number));
 
-  // Transpose the matrix
-  for (let i = 0; i < n; i++) {
-      for (let j = i; j < n; j++) {
-          [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+  // Rotate the matrix in-place
+  const n = inputMatrix.length;
+  for (let i = 0; i < n / 2; i++) {
+      for (let j = i; j < n - 1 - i; j++) {
+          const temp = inputMatrix[i][j];
+          inputMatrix[i][j] = inputMatrix[n - 1 - j][i];
+          inputMatrix[n - 1 - j][i] = inputMatrix[n - 1 - i][n - 1 - j];
+          inputMatrix[n - 1 - i][n - 1 - j] = inputMatrix[j][n - 1 - i];
+          inputMatrix[j][n - 1 - i] = temp;
       }
   }
 
-  // Reverse each row
-  for (let i = 0; i < n; i++) {
-      matrix[i].reverse();
-  }
+  // Display the rotated matrix
+  displayMatrix(inputMatrix, 'rotatedMatrix');
 }
 
-// Example usage:
-const matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
+function displayMatrix(matrix, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
 
-rotate(matrix);
+  matrix.forEach(row => {
+      const rowElement = document.createElement('div');
+      rowElement.className = 'matrixRow';
 
-console.log(matrix);
+      row.forEach(cell => {
+          const cellElement = document.createElement('div');
+          cellElement.className = 'matrixCell';
+          cellElement.textContent = cell;
+          rowElement.appendChild(cellElement);
+      });
+
+      container.appendChild(rowElement);
+  });
+}

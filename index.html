@@ -26,6 +26,18 @@
       <p class="text-start">
         The code first transposes the matrix by swapping elements across its main diagonal. This is done using a nested loop, iterating through the upper triangle of the matrix and swapping elements with their corresponding elements across the main diagonal.After transposing, the code reverses each row of the matrix. This step effectively rotates the matrix 90 degrees clockwise
       </p>
+
+      <div id="matrixContainer">
+        <h1>Matrix Rotation</h1>
+        <div id="matrixInput">
+            <label for="matrix">Enter Matrix:</label>
+            <textarea id="matrix" rows="4" cols="30"></textarea>
+            <button id="matrix" onclick="rotateMatrix()">Rotate Matrix</button>
+        </div>
+    
+        <!-- Display rotated matrix -->
+        <div id="rotatedMatrix"></div>
+    </div>
     </main>
 
     <footer class="footer footer-dark">
